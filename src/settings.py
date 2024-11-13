@@ -1,0 +1,1 @@
+OPCOES_ACEITAS = ["S", "N"]
