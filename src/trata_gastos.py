@@ -1,4 +1,3 @@
-import os
 from openpyxl import Workbook
 from datetime import datetime as dt
 
@@ -22,15 +21,9 @@ class CriaPlanilhaControle:
             planilha['B1'] = "Valor"
             planilha['C1'] = "Data"
 
-            planilha.cell(column=1, row=planilha.max_row + 1, value=dicionario_de_gastos.keys())
-            planilha.cell(column=2, row=planilha.max_row, value=str(dicionario_de_gastos.values()))
-            planilha.cell(column=3, row=planilha.max_row, value=data)
+            for chave, valor in dicionario_de_gastos.items():
+                planilha.cell(column=1, row=planilha.max_row + 1, value=chave)
+                planilha.cell(column=2, row=planilha.max_row, value=valor)
+                planilha.cell(column=3, row=planilha.max_row, value=data)
             wb.save('Controle_gastos.xlsx')
-
-            # for gasto in dicionario_de_gastos.items():
-            #     
-            #     df['Tipo gasto'] = dicionario_de_gastos.keys()
-            #     df['Valor'] = dicionario_de_gastos.values()
-            #     df["Data"] = data
-            # df.to_excel("Controle_gastos.xlsx", index=False)
         print('\nPlanilha criada com sucesso')
