@@ -52,6 +52,7 @@ class PegaGastos:
             print('-='*30)
             for config in OPCOES_PARA_CONFIGURAR_GASTOS:
                 print(f'{config}')
+            print('-='*30)
             tipo_config = int(input("Digite o número de sua escolha: "))
             if tipo_config == 0:
                 arquivo = edicao.edicao_de_tipos()
