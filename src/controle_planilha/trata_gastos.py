@@ -1,3 +1,4 @@
+import os
 from openpyxl import Workbook, load_workbook
 import pandas as pd
 from datetime import datetime as dt
@@ -14,11 +15,13 @@ class PlanilhaControle:
             if opcao == 'N':
                 print('Obrigado por usar nossos serviços!')
                 break
+        nome_pagina = str(input("Digite o nome da página da planilha: "))
+        nome_planilha = str(input("Digite o nome da planilha: "))
         if opcao == 'S':
             data = dt.now().strftime("%d-%m-%Y")
             wb = Workbook()
             planilha = wb.worksheets[0]
-            planilha.title = "NOVEMBRO 2024"
+            planilha.title = nome_pagina
             planilha['A1'] = "Tipo gasto"
             planilha['B1'] = "Valor"
             planilha['C1'] = "Data"
@@ -27,7 +30,7 @@ class PlanilhaControle:
                 planilha.cell(column=1, row=planilha.max_row + 1, value=chave)
                 planilha.cell(column=2, row=planilha.max_row, value=valor)
                 planilha.cell(column=3, row=planilha.max_row, value=data)
-            wb.save('Controle_gastos.xlsx')
+            wb.save(f'{nome_planilha}.xlsx')
         print('\nPlanilha criada com sucesso')
 
     def deleta_dado(nome_planilha):
@@ -44,6 +47,26 @@ class PlanilhaControle:
         planilha.delete_rows(opcao_dado + 1)
         wb.save(f'{nome_planilha}.xlsx')
         print("Dado deletado com sucesso.")
+    
+    def adiciona_dados(nome_planilha, dicionario_de_gastos):
+        wb = load_workbook(f'{nome_planilha}.xlsx')
+        data = dt.now().strftime("%d-%m-%Y")
+        planilha = wb.active
+        planilha['A1'] = "Tipo gasto"
+        planilha['B1'] = "Valor"
+        planilha['C1'] = "Data"
+
+        for chave, valor in dicionario_de_gastos.items():
+            planilha.cell(column=1, row=planilha.max_row + 1, value=chave)
+            planilha.cell(column=2, row=planilha.max_row, value=valor)
+            planilha.cell(column=3, row=planilha.max_row, value=data)
+        wb.save(f'{nome_planilha}.xlsx')
+        print('\nPlanilha atualizada com sucesso')
+
+    def cria_pagina(nome_planilha):
+        wb = load_workbook(f'{nome_planilha}.xlsx')
+        nome_pagina = str(input("Digite a página que deseja inserir: "))
+        planilha = wb.create_sheet(nome_pagina, 0)
 
     @classmethod
     def editar_planilha(cls, valores=None, nome_planilha=None):
@@ -57,14 +80,18 @@ class PlanilhaControle:
             print('-='*30)
             opcao = int(input("Digite o que deseja fazer: "))
             if opcao == 0:
-                cls.cria_planilha(valores)
+                decisao = int(input("Deseja:\n[0] Criar Planilha\n[1] Atualizar Planilha\n"))
+                if decisao == 0:
+                    cls.cria_planilha(valores)
+                if decisao == 1:
+                    nome_planilha = str(input("Digite o nome da planilha para carregar: "))
+                    cls.adiciona_dados(nome_planilha, valores)
             if opcao == 1:
                 nome_planilha = str(input("Digite o nome da planilha para carregar: "))
                 cls.deleta_dado(nome_planilha)
-                ...
             if opcao == 2:
-                # TODO adiciona nova página de mês na planilha
-                ...
+                nome_planilha = str(input("Digite o nome da planilha para carregar: "))
+                cls.cria_pagina(nome_planilha)
             if opcao == 3:
                 continuar = False
                 print("Configuração de planilhas finalizado")
