@@ -14,6 +14,8 @@ class PegaGastos:
         indices = len(tipos_de_gasto_padrao)
         continua = True
         while continua == True:
+            print("Você está na inserção de gastos")
+            print('-='*30)
             print("Insira o tipo de gasto")
             print('-='*30)
             for indice in range(indices):
@@ -41,37 +43,28 @@ class PegaGastos:
         return dict_gastos
     
     def configura_tipo_gastos():
-        print("Deseja configurar com os tipos de gasto?")
-        opcao = str(
-            input(
-                "(Ao dizer não, será pego os tipos já cadastrados no banco.\nDo contrário, irá poder cadastrar e/ou editar os já cadastrados)[S/N]: "
-            )
-        ).upper()
-        if opcao == "S":
-            continuar = True
-            while continuar == True:
-                edicao = EdicaoDoBanco
-                print("Perfeito! O que deseja fazer?")
-                print('-='*30)
-                print('-='*30)
-                for config in OPCOES_PARA_CONFIGURAR_GASTOS:
-                    print(f'{config}')
-                tipo_config = int(input("Digite o número de sua escolha: "))
-                if tipo_config == 0:
-                    arquivo = edicao.edicao_de_tipos()
-                    arquivo.close()
-                    continue
-                if tipo_config == 1:
-                    print("Ok! Me diga agora o nome desse tipo de gasto:")
-                    print("WIP: Aqui será feito o cadatro no banco de novos tipos de gasto")
-                    continue
-                if tipo_config == 2:
-                    print("Selecione o tipo que deseja excluir:")
-                    print("WIP: Banco de tipos salvos")
-                    print("Tem certeza que deseja excluir esse tipo permanetemente?")
-                    if 'S':
-                        print("Tipo de gasto exluido com sucesso")
-                    continue
-                if tipo_config == 3:
-                    print("Terminamos as edições por aqui!")
-                    continuar = False
+        print("Você está na configuração dos Tipos de Gastos")
+        continuar = True
+        while continuar == True:
+            edicao = EdicaoDoBanco
+            print("O que deseja fazer?")
+            print('-='*30)
+            print('-='*30)
+            for config in OPCOES_PARA_CONFIGURAR_GASTOS:
+                print(f'{config}')
+            tipo_config = int(input("Digite o número de sua escolha: "))
+            if tipo_config == 0:
+                arquivo = edicao.edicao_de_tipos()
+                arquivo.close()
+                continue
+            if tipo_config == 1:
+                arquivo = edicao.criacao_de_tipo()
+                arquivo.close()
+                continue
+            if tipo_config == 2:
+                arquivo = edicao.deletar_tipo()
+                arquivo.close()
+                continue
+            if tipo_config == 3:
+                print("Terminamos as edições por aqui!")
+                continuar = False
