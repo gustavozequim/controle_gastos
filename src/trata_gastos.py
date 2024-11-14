@@ -1,12 +1,12 @@
 from openpyxl import Workbook
 from datetime import datetime as dt
 
-from src.settings import OPCOES_ACEITAS
+from src.settings import OPCOES_ACEITAS_DE_GASTOS
 
 class CriaPlanilhaControle:
     def cria_planilha(dicionario_de_gastos):
         opcao = str(input('Deseja criar a planilha de controle?[S/N]: ')).upper()
-        while opcao not in OPCOES_ACEITAS:
+        while opcao not in OPCOES_ACEITAS_DE_GASTOS:
             print("Por favor digite S para inserir outro gasto, ou N para finalizar!")
             opcao = input('Deseja criar a planilha de controle?[S/N]: ').upper()
             if opcao == 'N':
