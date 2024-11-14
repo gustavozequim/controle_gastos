@@ -28,3 +28,4 @@ if __name__ == '__main__':
         if opcao == 3:
             print("Ok! O APP será finalizado\nObrigado pela preferência")
             continuar = False
+

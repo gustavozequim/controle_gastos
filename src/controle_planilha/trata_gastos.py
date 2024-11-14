@@ -66,7 +66,9 @@ class PlanilhaControle:
     def cria_pagina(nome_planilha):
         wb = load_workbook(f'{nome_planilha}.xlsx')
         nome_pagina = str(input("Digite a página que deseja inserir: "))
-        planilha = wb.create_sheet(nome_pagina, 0)
+        wb.create_sheet(nome_pagina, 0)
+        wb.save(f'{nome_planilha}.xlsx')
+        print(f'A página {nome_pagina} foi adicionada!')
 
     @classmethod
     def editar_planilha(cls, valores=None, nome_planilha=None):
