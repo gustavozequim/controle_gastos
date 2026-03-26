@@ -51,7 +51,9 @@ controle_gastos\
     - python -m src.main
   ```
   É necessário que você primeiramente, selecione a opção "0", ela lhe permitirá inserir um gasto (obs: os tipos de gastos estão previamente configurados, você pode alterá-los no arquivo banco_tipos_de_gastos.txt).
+  
   Após essa primeira inserção, selecione a opção "2", que é a configuração de planilha, ali você vai dar as informações necessárias para criar uma planilha de controle.
+  
   Após esse primeiro contato, você terá esse script para controlar seus gastos.
 
 
