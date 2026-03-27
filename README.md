@@ -14,7 +14,6 @@
 controle_gastos\
   L src\
     L controle_planilha/
-      L cria_nova_sheet.py
       L trata_gastos.py
     L pega_gastos/
       L edicao_de_tipos.py
